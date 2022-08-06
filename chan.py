@@ -10,7 +10,6 @@ def get_title():
     try:
         for x in r['posts']:
             title = x['sub']
-            has_title = True
             break
         title = re.sub(r'[^\w]', ' ', title)
         titled_folder(title.strip())
