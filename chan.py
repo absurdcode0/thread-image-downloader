@@ -1,7 +1,7 @@
 import requests, os, re
 
-board = 'r9k' # Select your board e.g adv, g, a etc
-post_id = '69701095' # Enter Post ID (Number next to the Time)
+board = '' # Select your board e.g adv, g, a etc
+post_id = '' # Enter Post ID (Number next to the Time)
 DIR = r'C:\Path\to\file'
 r = requests.get(f'https://a.4cdn.org/{board}/thread/{post_id}.json')
 r = r.json()
