@@ -4,7 +4,7 @@ board = ''           # Enter your board e.g adv, g, a etc
 post_id = ''         # Enter Post ID (Number next to the Time)
 
 # Enter where you want to download
-path = os.path.join(os.sep, 'C:', os.sep, 'Users', 'Mike', 'Documents', 'pypypypy')  # Windows Example prints C:\Users\Path\To\X
+path = os.path.join(os.sep, 'C:', os.sep, 'Path', 'To', 'X',)  # Windows Example prints C:\Users\Path\To\X
 # Linux Example prints /home/name/documents, just an exmaple edit this ^
 dir_lin = os.path.join(os.sep, 'home', 'name', 'Documents')             
 
