@@ -26,6 +26,7 @@ def board_folder(folder_title):
 def thread_folder(postno):
     os.makedirs(postno)
     os.chdir(rf"{postno}")
+        
 def main():
     for item in r['posts']:
         try:
