@@ -6,9 +6,7 @@ url = url.split("/") #['https:', '', 'boards.4channel.org', 'g', 'thread', '1111
 board = url[3]
 thread_id = url[-1]
 
-# Enter where you want to download
-path = os.path.join(os.sep, 'C:', os.sep, 'Path', 'To', 'X')  # Windows Example  C:\Users\Path\To\X
-dir_lin = os.path.join(os.sep, 'home', 'name', 'Documents')             # Linux Example prints /home/name/documents
+#workpath = os.path.dirname(os.path.realpath(__file__))
 
 r = requests.get(f'https://a.4cdn.org/{board}/thread/{thread_id}.json')
 r = r.json()
@@ -26,7 +24,6 @@ def board_folder(folder_title):
 def thread_folder(postno):
     os.makedirs(postno)
     os.chdir(rf"{postno}")
-        
 def main():
     for item in r['posts']:
         try:
@@ -43,4 +40,5 @@ def main():
         except KeyError: # if no image
             continue        
 board_folder(board)
-main()
+if __name__ == '__main__':
+    main() 
