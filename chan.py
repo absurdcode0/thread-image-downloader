@@ -1,8 +1,13 @@
 import requests, os, re
 
-board = '' # Select your board e.g adv, g, a etc
-post_id = '' # Enter Post ID (Number next to the Time)
-DIR = r'C:\Path\to\file'
+board = ''           # Enter your board e.g adv, g, a etc
+post_id = ''         # Enter Post ID (Number next to the Time)
+
+# Enter where you want to download
+path = os.path.join(os.sep, 'C:', os.sep, 'Users', 'Mike', 'Documents', 'pypypypy')  # Windows Example prints C:\Users\Path\To\X
+# Linux Example prints /home/name/documents, just an exmaple edit this ^
+dir_lin = os.path.join(os.sep, 'home', 'name', 'Documents')             
+
 r = requests.get(f'https://a.4cdn.org/{board}/thread/{post_id}.json')
 r = r.json()
 
@@ -12,25 +17,26 @@ def get_title():
             title = x['sub']
             break
         title = re.sub(r'[^\w]', ' ', title)
-        titled_folder(title.strip())
+        title = title.strip()
+        titled_folder(title)
     except KeyError:
         board_folder(post_id)
 def board_folder(folder_title):
         new_dir = folder_title
-        fullname = f"{board} {new_dir}"
+        fullname = f"{board}-{new_dir}"
         if os.path.isdir(new_dir):
             os.makedirs(fullname)
-            os.chdir(rf"{DIR}\{fullname}")
+            os.chdir(rf"{path}{os.sep}{fullname}")
         else:
             os.makedirs(fullname)
-            os.chdir(rf"{DIR}\{fullname}")
+            os.chdir(rf"{path}{os.sep}{fullname}")
 def titled_folder(folder):
     if os.path.isdir(folder):
-        os.makedirs(rf"{DIR}\{folder}_{post_id}")
-        os.chdir(rf"{DIR}\{folder}_{post_id}")
+        os.makedirs(rf"{path}{os.sep}{folder}-{post_id}")
+        os.chdir(rf"{path}{os.sep}{folder}-{post_id}")
     else:
-        os.makedirs(rf"{DIR}\{folder}")
-        os.chdir(rf"{DIR}\{folder}")
+        os.makedirs(rf"{path}{os.sep}{folder}")
+        os.chdir(rf"{path}{os.sep}{folder}")
 
 def main():
     for item in r['posts']:
