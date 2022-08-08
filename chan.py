@@ -2,7 +2,6 @@ from sys import argv
 from requests import get
 from os import chdir, makedirs, path
 from pathlib import Path
-import time
 
 url = argv[1]
 url = url.split("/") #['https:', '', 'boards.4channel.org', 'g', 'thread', '111111']
