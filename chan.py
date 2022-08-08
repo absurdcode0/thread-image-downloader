@@ -1,14 +1,15 @@
 from sys import argv
 from requests import get
 from os import chdir, makedirs, path
+from pathlib import Path
+import time
 
 url = argv[1]
 url = url.split("/") #['https:', '', 'boards.4channel.org', 'g', 'thread', '111111']
 board = url[3]
 thread_id = url[-1]
 
-#workpath = os.path.dirname(os.path.realpath(__file__))
-
+images = []
 r = get(f'https://a.4cdn.org/{board}/thread/{thread_id}.json')
 r = r.json()
 
@@ -25,21 +26,22 @@ def board_folder(folder_title):
 def thread_folder(postno):
     makedirs(postno)
     chdir(rf"{postno}")
-def main():
+def get_image():
     for item in r['posts']:
         try:
             ext = item['ext']
             id = item['tim']
             full = f"{id}{ext}"
-            image_url = f'https://is2.4chan.org/{board}/{id}{ext}'
-                    
-            img_data = get(image_url).content
-
-            with open(full, 'wb') as handler:
-                handler.write(img_data)
-                print("image downloaded")
+            images.append(full)
         except KeyError: # if no image
-            continue        
+            continue
+def main():
+    for image in images:
+        image_url = f'https://i.4cdn.org/{board}/{image}' 
+        filename = Path(image)
+        response = get(image_url)
+        filename.write_bytes(response.content)
+        print("image downloaded")
 board_folder(board)
-if __name__ == '__main__':
-    main() 
+get_image()
+main() 
